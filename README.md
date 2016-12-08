@@ -5,6 +5,7 @@ Collects best practices from opensource cloudfoundry platforms service providers
 * monitoring
 * log aggregation
 * ssh jumpbox
+* ..
 
 
 # FAQ
@@ -22,7 +23,7 @@ This may include strategies/comparative analysis for features that fall outside 
 - would be too specific to certain types of deployment/use-case (altough we try to avoid Orange-specific use-cases here).
 
 
-## How to contribute images/diagrams
+## How to contribute images/diagrams ?
 
 Please contribute source of the diagram as well as a rendered form (JPG or PNG) to enable future improvements without a large extra work.
 We strive to ease contributions without requiring specific licenses or operating system. 
