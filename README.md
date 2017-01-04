@@ -31,3 +31,7 @@ We strive to ease contributions without requiring specific licenses or operating
 For images where you need precise control over the layout, consider SaaS drawing tools with free tiers and source exports, such as draw.io (see inspiration in [prometheus-boshrelease docs](https://github.com/cloudfoundry-community/prometheus-boshrelease/tree/3c93dd8531706344a0a9d53ffca972fae3e61ff0/docs)
 
 For images where no tight control over layout is required, consider [plantuml](http://plantuml.com/) syntax, possibly pointing to remotely rendered PNG/JPG from http://plantuml.com/plantuml/ 
+
+## In which github org should live this repo ?
+
+This repo is likely to be better suited in the https://github.com/cloudfoundry-community/ organization. This is only transiently being bootstrapped into orange-cloudfoundry
