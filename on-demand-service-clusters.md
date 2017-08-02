@@ -97,5 +97,9 @@ $ cf create-service mysql-on-demand database my-team-customer-db -c { "cluster"=
 ERROR: 400, requesting user (userGuid=XX) has not permission to access cluster service-instance guid=YY
 ```
 
+## Overall picture
+
+![Image of Yaktocat](On-demand-clusters-1.png)
+
 
 # What
