@@ -201,13 +201,13 @@ In the same space, or in the future in different spaces following the [Service i
 ### Comparisons
 
 * Non bindeable "cluster" service instances
-  * - More complex UX that need to reference clusters as arbitrary param: 
+  * `-:` More complex UX that need to reference clusters as arbitrary param: 
 * Dedicated clusters appearing as distinct services in marketplace
-  * + Less work for the on-demand broker: no need to track database instanciation to reject cluster deletion requests (handled by CC)
-  * - Pollutes the marketplace  
+  * `+:` Less work for the on-demand broker: no need to track database instanciation to reject cluster deletion requests (handled by CC)
+  * `-:` Pollutes the marketplace  
 * Dedicated clusters with single database
-  * - No way to share cluster among multiple dbs
-  * - sharing cluster across spaces depends on [Service instance sharing proposal](http://cf-dev.70369.x6.nabble.com/cf-dev-Proposal-Sharing-service-instances-across-orgs-and-spaces-td7076.html)
+  * `-:` No way to share cluster among multiple dbs
+  * `-:` sharing cluster across spaces depends on [Service instance sharing proposal](http://cf-dev.70369.x6.nabble.com/cf-dev-Proposal-Sharing-service-instances-across-orgs-and-spaces-td7076.html)
 
 ## Overall picture
 
