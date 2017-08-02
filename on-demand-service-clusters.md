@@ -99,7 +99,7 @@ $ cf create-service mysql-on-demand database my-team-customer-db -c { "cluster"=
 ERROR: 400, requesting user (userGuid=XX) has not permission to access cluster service-instance guid=YY
 ```
 
-### Dedicated clusters appearing as distinct services in marketplace
+### Dedicated clusters registering distinct services in marketplace
 
 In this simpler variation, the marketplace has a service for instanciation clusters on demand
 
@@ -126,7 +126,7 @@ name                         service             plan        bound apps         
 my-team-db-cluster   mysql-on-demand     cluster-small                                           success
 ```
 
-As a result, this register a new service offer in the organization
+As a result, this registers a new service offer in the organization
 
 ```
 $ cf marketplace
@@ -201,13 +201,14 @@ In the same space, or in the future in different spaces following the [Service i
 ### Comparisons
 
 * Non bindeable "cluster" service instances
-  * `-:` More complex UX that need to reference clusters as arbitrary param: 
-* Dedicated clusters appearing as distinct services in marketplace
+  * `-:` More complex UX that need to reference clusters as arbitrary param
+* Dedicated clusters registering distinct services in marketplace
   * `+:` Less work for the on-demand broker: no need to track database instanciation to reject cluster deletion requests (handled by CC)
   * `-:` Pollutes the marketplace  
+  * `-:` Requires platform specific broker registration (e.g. CF and openshift) not yet standardized in OSB api
 * Dedicated clusters with single database
   * `-:` No way to share cluster among multiple dbs
-  * `-:` sharing cluster across spaces depends on [Service instance sharing proposal](http://cf-dev.70369.x6.nabble.com/cf-dev-Proposal-Sharing-service-instances-across-orgs-and-spaces-td7076.html)
+  * `-:` Sharing cluster across spaces depends on [Service instance sharing proposal](http://cf-dev.70369.x6.nabble.com/cf-dev-Proposal-Sharing-service-instances-across-orgs-and-spaces-td7076.html)
 
 ## Overall picture
 
