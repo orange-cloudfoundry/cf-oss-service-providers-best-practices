@@ -99,7 +99,45 @@ ERROR: 400, requesting user (userGuid=XX) has not permission to access cluster s
 
 ## Overall picture
 
-![Image of Yaktocat](On-demand-clusters-1.png)
+![Overall model](On-demand-clusters-1.png)
+
+User desired state is composed of parameters passed to the service broker API, typically:
+- instance guid
+- plan (usually cluster sizing)
+- arbitrary params such as 
+   - cluster-wide configurations (e.g. cache size)
+   - major version
+- org/space (used for billing)
+- requester userId 
+
+
+Service-ops desired state typically contains:
+- terraform config (iaas or cloudfoundry), 
+- new bosh deployments
+- bosh errand execution
+- updates to shared bosh deployments
+- new cloudfoundry app deployments
+- API calls to register to other systems
+
+Cluster life cycle pipeline include the following tasks (triggered by dependent resources or explicit ops request)
+- deploy
+- recreate: recreate resources, usually preserving its state (e.g. bosh recreate)
+- delete
+
+Service ops current state contains:
+- cluster credentials (e.g. hosted in credhub)
+- deployed state (e.g. in bo
+
+
+Specifically for mysql, Service-ops desired state contains:
+- ~openstack service groups for server affinity~
+- mysql-release bosh deployment including mysql-nodes, proxy, arbitrator instance groups. This includes prometheus node+mysql exporters jobs collocated.
+- mysql-release errands: boostrap, smoke tests
+- update to shared bosh deployments: 
+   - prometheus exporter registration (until autodiscovery gets automated)
+   - shield backup registration
+- New CF apps, e.g. dedicated phpmyadmin app instances, dedicated probe apps
+
 
 
 # What
