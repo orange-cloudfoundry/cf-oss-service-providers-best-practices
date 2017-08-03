@@ -17,7 +17,7 @@ A service broker which dynamically triggers the generation a new concourse pipel
 
 ## User experience
 
-### Non bindeable "cluster" service instances
+### Non bindeable "cluster" service instances, referenced as arbitrary params in "database"
 
 Given a mono-tenant service such as 
 
@@ -135,11 +135,11 @@ mysql-clusters-on-demand        cluster-small, cluster-large                 MyS
 my-team-db-cluster              100mb, 1gb, 15gb                             MySQL databases on demand in the dedicated "my-team-db-cluster" shared cluster
 ```
 
-Teams can then instanciate databases within this dedicated cluster, by referencing the associated service in marketplace
+Teams can then instanciate databases within this dedicated cluster
 
 ```
-$ cf create-service my-team-db-cluster 15gb my-team-customer-db -c { "cluster"="my-team-db-cluster"}
-$ cf create-service my-team-db-cluster 15gb my-team-product-db  -c { "cluster"="my-team-db-cluster"}
+$ cf create-service my-team-db-cluster 15gb my-team-customer-db
+$ cf create-service my-team-db-cluster 15gb my-team-product-db
 
 $ cf bind-service my-team-product-db my-team-product-app
 $ cf bind-service my-team-customer-db my-team-customer-app
@@ -173,6 +173,7 @@ A team instanciates a dedicated cluster within a space, and a single database wi
 #   cf create-service SERVICE PLAN SERVICE_INSTANCE [-c PARAMETERS_AS_JSON] [-t TAGS]
 
 $ cf create-service mysql-clusters-on-demand cluster-small my-team-db-cluster
+(non-bindeable)
 
 $ cf services 
 Getting services in org my-team / space prod as gberche...
@@ -200,11 +201,11 @@ In the same space, or in the future in different spaces following the [Service i
 
 ### Comparisons
 
-* Non bindeable "cluster" service instances
+* Non bindeable "cluster" service instances, referenced as arbitrary params in "database" service instances
   * `-:` More complex UX that need to reference clusters as arbitrary param (without completion)
 * Dedicated clusters registering distinct services in marketplace
   * `+:` Simple to implement. Less work for the on-demand broker: no need to track database instanciation to reject cluster deletion requests (handled by CC). No need to delegate calls among brokers.
-  * `-:` Visibility can not be restricted to specific space
+  * `-:` Visibility can not be restricted to specific space (any space developer can instanciate databases within an org cluster)
   * `-:` Pollutes the organization marketplace with service names (unique within platform)
   * `-:` Requires platform-specific broker registration (e.g. CF and openshift) not yet standardized in OSB api
 * Dedicated clusters with single database
