@@ -12,6 +12,8 @@ Principe
 - définir le nœud sur lequel on va restaurer
 - stopper les autres nœuds
 
+#### Pre-requis  
+
 Sur le nœud de restauration, modifier les variables avant   
 
 	set global enforce_storage_engine=NULL;
@@ -56,11 +58,13 @@ Sur le nœud de restauration :
 	cd /var/vcap/store/mysql/
 	rm –Rf *
 
-#### Sur les autres nœuds  
+Sur les autres nœuds  
 
 	monit stop all
 	
 #### restauration SHIELD  
+
+lancer la restauration depuis SHIELD 
 
 #### Post-restauration 
 
