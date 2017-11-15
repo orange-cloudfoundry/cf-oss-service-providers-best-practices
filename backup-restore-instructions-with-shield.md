@@ -19,6 +19,28 @@ Sur le nœud de restauration, modifier les variables avant
 	set global enforce_storage_engine=NULL;
 	set global general_log=OFF;
 	set global slow_query_log=OFF;
+
+Vérifier la place prise par les logbin
+
+	MariaDB [(none)]> SHOW BINARY LOGS;
+	+------------------+-----------+
+	| Log_name         | File_size |
+	+------------------+-----------+
+	| mysql-bin.000012 |       409 |
+	| mysql-bin.000013 | 988995366 |
+	| mysql-bin.000014 | 859562470 |
+	| mysql-bin.000015 | 122589435 |
+	| mysql-bin.000016 | 789955446 |
+	| mysql-bin.000017 |      1991 |
+	| mysql-bin.000018 | 998122809 |
+	| mysql-bin.000019 |       366 |
+	+------------------+-----------+
+et purger and précisant le nom du dernier binlon : Attention, pas de récupération possible.
+
+	MariaDB [(none)]> PURGE BINARY LOGS TO 'mysql-bin.000019';
+	Query OK, 0 rows affected (0.02 sec)
+	
+
 Sur les autres nœuds  
 
 	monit stop all
