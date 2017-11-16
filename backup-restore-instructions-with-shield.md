@@ -37,7 +37,7 @@ Vérifier la place prise par les logbin
 	+------------------+-----------+
 et purger and précisant le nom du dernier binlon : Attention, pas de récupération possible.
 
-	MariaDB [(none)]> PURGE BINARY LOGS TO 'mysql-bin.000019';
+	MariaDB [(none)]> PURGE BINARY LOGS BEFORE now();
 	Query OK, 0 rows affected (0.02 sec)
 	
 
