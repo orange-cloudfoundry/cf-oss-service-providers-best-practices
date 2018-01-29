@@ -93,12 +93,12 @@ lancer la restauration depuis SHIELD
 Sur le nœud de restauration  
 
 	chown -R vcap:vcap /var/vcap/store/mysql/*
-        echo -n "NEEDS_BOOTSTRAP" > /var/vcap/store/mysql/state.txt
+	echo -n "NEEDS_BOOTSTRAP" > /var/vcap/store/mysql/state.txt
 	monit start mariadb_ctrl
 
 Sur chacun des nœuds à tour de rôle  
 
 	rm -rf /var/vcap/store/mysql
 	/var/vcap/jobs/mysql/bin/pre-start
-	monit start all
+	monit start mariadb_ctrl
 
