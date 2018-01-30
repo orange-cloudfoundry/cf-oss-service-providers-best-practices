@@ -17,11 +17,12 @@ mysql_bindir: "/var/vcap/packages/mariadb/bin"
 
 ## Plugin MySQL: Restauration
 
-Principe 
-– Définir le nœud sur lequel on va restaurer
-– Stopper les autres nœuds
-– Restaurer
-– Resynchroniser les autres nœuds
+Principe
+
+- Définir le nœud sur lequel on va restaurer
+- Stopper les autres nœuds
+- Restaurer
+- Resynchroniser les autres nœuds
 
 #### Prerequis  
 
@@ -55,12 +56,13 @@ monit start mariadb_ctrl
 ### Restauration
 
 Principe 
-– Définir le nœud sur lequel on va restaurer
-– Stopper les autres nœuds
-– Restaurer
-– Préparer le redémarrage en BOOTSTRAP
-– Démarrer
-– Resynchroniser les autres nœuds
+
+- Définir le nœud sur lequel on va restaurer
+- Stopper les autres nœuds
+- Restaurer
+- Préparer le redémarrage en BOOTSTRAP
+- Démarrer
+- Resynchroniser les autres nœuds
 
 #### Prerequis
 Sur tous les nœuds :  
@@ -98,14 +100,15 @@ Dans certains cas, il peut être intéressant de restaurer jusqu'à une date pr�
 ### Restauration Xtrabackup PITR
 
 Principe 
-– Définir le nœud sur lequel on va restaurer (ne pas restaurer une sauvegarde d'un nœud sur un autre nœud)
-– Stopper les nœuds
-– Copier les binlogs dans un autre répertoire
-– Restaurer,
-– Redémarrer l'instance en BOOTSTRAP
-– Extraire les transactions manquantes des logbins à appliquer
-– Appliquer les transactions manquantes 
-– Resynchroniser les autres nœuds
+
+- Définir le nœud sur lequel on va restaurer (ne pas restaurer une sauvegarde d'un nœud sur un autre nœud)
+- Stopper les nœuds
+- Copier les binlogs dans un autre répertoire
+- Restaurer,
+- Redémarrer l'instance en BOOTSTRAP
+- Extraire les transactions manquantes des logbins à appliquer
+- Appliquer les transactions manquantes 
+- Resynchroniser les autres nœuds
 
 
 #### Prerequis
@@ -156,7 +159,7 @@ binlog_pos = filename 'mysql-bin.000022', position '3606', GTID of the last chan
 /var/vcap/packages/mariadb/bin/mysqlbinlog -uroot /tmp/binlog/mysql-bin.000022 --start-position=3606 --stop-datetime="2018-01-26 16:20:00" > /tmp/mybinlog.sql
 ```
 
-– Puis pour chaque binlog disponibles
+- Puis pour chaque binlog disponibles
 
 ```sh
 /var/vcap/packages/mariadb/bin/mysqlbinlog -uroot /tmp/binlog/mysql-bin.000023 --stop-datetime="2018-01-26 16:20:00" >> /tmp/mybinlog.sql
