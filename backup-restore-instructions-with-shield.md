@@ -2,15 +2,22 @@
 
 ## Plugin MySQL
 
-### Backup MySQL
+Définir les options de MySQLDump dans le manifest
 
+	mysql_host: 127.0.0.1
+	mysql_port: "3306"
+	mysql_user: root
+	mysql_password: ((cf_mysql_mysql_admin_password))
 	mysql_options: "--flush-logs --add-drop-database --single-transaction  --opt"
+	mysql_bindir: "/var/vcap/packages/mariadb/bin"
 
 ### Restauration MySQL
 
 Principe 
 - définir le nœud sur lequel on va restaurer
 - stopper les autres nœuds
+- restaurer 
+- resynchroniser les autres nœud
 
 #### Pre-requis  
 
@@ -35,7 +42,7 @@ Vérifier la place prise par les logbin
 	| mysql-bin.000018 | 998122809 |
 	| mysql-bin.000019 |       366 |
 	+------------------+-----------+
-et purger and précisant le nom du dernier binlon : Attention, pas de récupération possible.
+et purger and précisant le nom du dernier binlog : Attention, pas de récupération possible.
 
 	MariaDB [(none)]> PURGE BINARY LOGS BEFORE now();
 	Query OK, 0 rows affected (0.02 sec)
@@ -50,13 +57,13 @@ Lancer la restauration
 
 #### Post-restauration
 
-Sur le nœud de restauration, modifier les variables  
+Sur le nœud de restauration, Remettre les variables à leur valeurs initiales  
  
 	Set global enforce_storage_engine=InnoDB;
 	Set global general_log=OFF;
 	Set global slow_query_log=ON;
 
-Sur chacun des nœuds à tour de rôle  
+Puis chacun des nœuds à tour de rôle, resynchroniser   
 
 	rm -rf /var/vcap/store/mysql
 	/var/vcap/jobs/mysql/bin/pre-start
@@ -64,16 +71,16 @@ Sur chacun des nœuds à tour de rôle
 
 ## Plugin Xtrabackup
 
-### Sauvegarde
-
-RAS
-
-### Restauration
+### Restauration Xtrabackup
 
 Principe 
 - définir le nœud sur lequel on va restaurer
 - stopper les autres nœuds
+- restaurer
+- preparer le redémarrage de l'instance
+- resynchroniser les nœuds
 
+#### Pre-requis 
 Sur le nœud de restauration :  
 
 	monit stop mariadb_ctrl
