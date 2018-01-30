@@ -1,4 +1,4 @@
-# Consignes exploitations Plugin SHIELD 
+# Consignes exploitations Plugin SHIELD V6
 
 ## Plugin MySQL
 
@@ -17,11 +17,11 @@ Principe
 - définir le nœud sur lequel on va restaurer
 - stopper les autres nœuds
 - restaurer 
-- resynchroniser les autres nœud
+- resynchroniser les autres nœuds
 
 #### Pre-requis  
 
-Sur le nœud de restauration, modifier les variables avant   
+Sur le nœud de restauration, modifier les variables systeme MySQL  
 
 	set global enforce_storage_engine=NULL;
 	set global general_log=OFF;
@@ -42,6 +42,7 @@ Vérifier la place prise par les logbin
 	| mysql-bin.000018 | 998122809 |
 	| mysql-bin.000019 |       366 |
 	+------------------+-----------+
+
 et purger and précisant le nom du dernier binlog : Attention, pas de récupération possible.
 
 	MariaDB [(none)]> PURGE BINARY LOGS BEFORE now();
@@ -57,7 +58,7 @@ Lancer la restauration
 
 #### Post-restauration
 
-Sur le nœud de restauration, Remettre les variables à leur valeurs initiales  
+Sur le nœud de restauration, Remettre les variables systeme MySQL à leurs valeurs initiales  
  
 	Set global enforce_storage_engine=InnoDB;
 	Set global general_log=OFF;
@@ -70,6 +71,13 @@ Puis chacun des nœuds à tour de rôle, resynchroniser
 	monit start mariadb_ctrl
 
 ## Plugin Xtrabackup
+Définir les options de MySQLDump dans le manifest
+
+	mysql_user: root
+	mysql_password: ((cf_mysql_mysql_admin_password))
+	mysql_datadir: "/var/vcap/store/mysql"
+	mysql_xtrabackup: "/var/vcap/packages/xtrabackup/bin/xtrabackup"
+
 
 ### Restauration Xtrabackup
 
