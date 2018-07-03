@@ -1,8 +1,8 @@
-# Consignes exploitations Plugin SHIELD V6
+# Operations instructions for SHIELD plugin V6 
 
 ## Plugin MySQL
 
-Définir les options de MySQLDump dans le manifest
+Define MySQLDump option in manifest
 
 ```
 mysql_host: 127.0.0.1
@@ -13,17 +13,17 @@ mysql_options: "--flush-logs --add-drop-database --single-transaction  --opt"
 mysql_bindir: "/var/vcap/packages/mariadb/bin"
 ```
 
-### Restauration avec MySQLDump
+### Restore with MySQLDump
 
-Principe 
-- définir le nœud sur lequel on va restaurer
-- stopper les autres nœuds
-- restaurer 
-- resynchroniser les autres nœuds
+Principles :
+- Choose the mysql node for restore
+- Stop other nodes
+- Restore backup
+- Resynchronize the other mysql nodes
 
-#### Pre-requis  
+#### Pre-requisites  
 
-Sur le nœud de restauration, modifier les variables systeme MySQL  
+On the restore node, modify MySQL system variables  
 
 ```sql
 set global enforce_storage_engine=NULL;
@@ -31,7 +31,7 @@ set global general_log=OFF;
 set global slow_query_log=OFF;
 ```
 
-Vérifier l'espace disque utilisé par les logbin MySQL
+Check the disk space used by the MySQL logbin
 
 ```sql
 MariaDB [(none)]> SHOW BINARY LOGS;
@@ -49,25 +49,25 @@ MariaDB [(none)]> SHOW BINARY LOGS;
 +------------------+-----------+
 ```
 
-et purger and précisant le nom du dernier binlog : Attention, pas de récupération possible.
+and purge and specifying the name of the last binlog : Becarefull, no recovery possible.
 
 ```sql
 MariaDB [(none)]> PURGE BINARY LOGS BEFORE now();
 Query OK, 0 rows affected (0.02 sec)
 ```
 
-Sur les autres nœuds  
+On other mysql nodes  
 
 ```sh
 monit stop mariadb_ctrl
 ```
 
-#### Restaurer avec SHIELD
-Lancer la restauration
+#### Restore with SHIELD
+Start restore
 
-#### Post-restauration
+#### Post Shield restore
 
-Sur le nœud de restauration, Remettre les variables systeme MySQL à leurs valeurs initiales  
+On restore node, reset the MySQL system variables to their initial values 
  
 ```sql
 MariaDB [(none)]> Set global enforce_storage_engine=InnoDB;
@@ -75,7 +75,7 @@ MariaDB [(none)]> Set global general_log=OFF;
 MariaDB [(none)]> Set global slow_query_log=ON;
 ```
 
-Puis chacun des nœuds à tour de rôle, resynchroniser   
+On each other nodes, resynchronize MySQL Gaera Cluster
 
 ```sh
 rm -rf /var/vcap/store/mysql
@@ -84,7 +84,7 @@ monit start mariadb_ctrl
 ```
 
 ## Plugin Xtrabackup
-Définir les options de Xtrabackup dans le manifest
+Define Xtrabackup option in manifest
 
 ```sh
 mysql_user: root
@@ -93,17 +93,17 @@ mysql_datadir: "/var/vcap/store/mysql"
 mysql_xtrabackup: "/var/vcap/packages/xtrabackup/bin/xtrabackup"
 ```
 
-### Restauration avec Xtrabackup
+### Restore with Xtrabackup
 
-Principe 
-- Définir le nœud sur lequel on va restaurer
-- Stopper les autres nœuds
-- Restaurer
-- Preparer le redémarrage de l'instance
-- Resynchroniser les nœuds
+Principles :
+- Choose the mysql node for restore
+- Stop other nodes
+- Restore backup
+- Prepare the restart of MySQL instance
+- Resynchronize the other mysql nodes
 
-#### Pre-requis 
-Sur le nœud de restauration :  
+#### Pre-requisites  
+On the restore node :
 
 ```sh
 monit stop mariadb_ctrl
@@ -111,19 +111,18 @@ cd /var/vcap/store/mysql/
 rm –Rf *
 ```
 
-Sur les autres nœuds  
+On other mysql nodes  
 
 ```sh
 monit stop mariadb_ctrl
 ```
 	
-#### restauration SHIELD  
+#### Restore with SHIELD
+Start restore
 
-lancer la restauration depuis SHIELD 
+#### Post Shield restore
 
-#### Post-restauration 
-
-Sur le nœud de restauration  
+On restore node
 
 ```sh
 echo -n "NEEDS_BOOTSTRAP" > /var/vcap/store/mysql/state.txt
@@ -131,7 +130,7 @@ chown -R vcap:vcap /var/vcap/store/mysql/*
 monit start mariadb_ctrl
 ```
 
-Sur chacun des nœuds à tour de rôle  
+On each other nodes, resynchronize MySQL Gaera Cluster
 
 ```sh
 rm -rf /var/vcap/store/mysql
