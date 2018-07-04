@@ -6,12 +6,12 @@ Les 2 plugins ont été améliorés afin de minimiser les opérations d'exploita
 
 Définir les options de MySQLDump dans le manifest
 ```
-	mysql_host: 127.0.0.1
-	mysql_port: "3306"
-	mysql_user: root
-	mysql_password: ((cf_mysql_mysql_admin_password))
-	mysql_options: "--flush-logs --add-drop-database --single-transaction  --opt"
-	mysql_bindir: "/var/vcap/packages/mariadb/bin"
+mysql_host: 127.0.0.1
+mysql_port: "3306"
+mysql_user: root
+mysql_password: ((cf_mysql_mysql_admin_password))
+mysql_options: "--flush-logs --add-drop-database --single-transaction  --opt"
+mysql_bindir: "/var/vcap/packages/mariadb/bin"
 ```
 
 ## Plugin MySQL: Restauration
@@ -31,7 +31,7 @@ Aucune action à faire, le plugin réalise les modifications nécessaires des va
 Sur les autres nœuds
 
 ```sh
-	monit stop mariadb_ctrl
+monit stop mariadb_ctrl
 ```
 
 #### Restaurer avec SHIELD
@@ -44,9 +44,9 @@ Si les vérifications sont correctes
 - Sur chacun autres nœuds à tour de rôle  
 
 ```sh
-	rm -rf /var/vcap/store/mysql
-	/var/vcap/jobs/mysql/bin/pre-start
-	monit start mariadb_ctrl
+rm -rf /var/vcap/store/mysql
+/var/vcap/jobs/mysql/bin/pre-start
+monit start mariadb_ctrl
 ```
 
 ## Plugin Xtrabackup
@@ -65,7 +65,7 @@ Principe
 Sur tous les nœuds :  
 
 ```sh
-	monit stop mariadb_ctrl
+monit stop mariadb_ctrl
 ```
 
 #### Restaurer avec SHIELD  
@@ -77,18 +77,18 @@ lancer la restauration depuis SHIELD
 . Sur le nœud de restauration, Redémarrer l'instance en boot-strap  
 
 ```sh
-	echo -n "NEEDS_BOOTSTRAP" > /var/vcap/store/mysql/state.txt
-	chown vcap:vcap /var/vcap/store/mysql/state.txt
-	monit start mariadb_ctrl
+echo -n "NEEDS_BOOTSTRAP" > /var/vcap/store/mysql/state.txt
+chown vcap:vcap /var/vcap/store/mysql/state.txt
+monit start mariadb_ctrl
 ```
 
 Si les vérifications sont correctes :  
 - Sur chacun des nœuds à tour de rôle  
 
-```
-	rm -rf /var/vcap/store/mysql
-	/var/vcap/jobs/mysql/bin/pre-start
-	monit start mariadb_ctrl
+```sh
+rm -rf /var/vcap/store/mysql
+/var/vcap/jobs/mysql/bin/pre-start
+monit start mariadb_ctrl
 ```
 
 ## Restauration avec PITR (Point In Time Recovery)
@@ -115,8 +115,8 @@ Sur tous les nœuds :
 Sur le noeud de restauration, copier les binlog :  
 
 ```sh
-	mkdir /tmp/binlog
-	cp /var/vcap/store/mysql/mysql-bin.* /tmp/binlog
+mkdir /tmp/binlog
+cp /var/vcap/store/mysql/mysql-bin.* /tmp/binlog
 ```
 
 #### Restaurer avec SHIELD  
@@ -128,19 +128,19 @@ lancer la restauration depuis SHIELD
 - Sur le nœud de restauration, Redémarrer l'instance en boot-strap  
 
 ```sh
-	echo -n "NEEDS_BOOTSTRAP" > /var/vcap/store/mysql/state.txt
-	chown vcap:vcap /var/vcap/store/mysql/state.txt
-	monit start mariadb_ctrl
+echo -n "NEEDS_BOOTSTRAP" > /var/vcap/store/mysql/state.txt
+chown vcap:vcap /var/vcap/store/mysql/state.txt
+monit start mariadb_ctrl
 ```
 
 - Récupérer la dernière transaction (binlog_pos) appliquée sur la sauvegarde
 
 ```sh
-	grep binlog_pos /var/vcap/store/mysql/xtrabackup_info
+grep binlog_pos /var/vcap/store/mysql/xtrabackup_info
 ```
 
 ```sh
-	binlog_pos = filename 'mysql-bin.000022', position '3606', GTID of the last change '0-1-1397001'  
+binlog_pos = filename 'mysql-bin.000022', position '3606', GTID of the last change '0-1-1397001'  
 ```
 
 Génération du fichier `/tmp/mybinlog.sql` pour remettre à niveau l'instance mysql
@@ -166,7 +166,7 @@ Génération du fichier `/tmp/mybinlog.sql` pour remettre à niveau l'instance m
 - Sur chacun des nœuds à tour de rôle  
 
 ```sh
-	rm -rf /var/vcap/store/mysql
-	/var/vcap/jobs/mysql/bin/pre-start
-	monit start mariadb_ctrl
+rm -rf /var/vcap/store/mysql
+/var/vcap/jobs/mysql/bin/pre-start
+monit start mariadb_ctrl
 ```
