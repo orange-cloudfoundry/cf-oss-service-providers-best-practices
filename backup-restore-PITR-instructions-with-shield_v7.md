@@ -1,4 +1,4 @@
-# Consignes exploitations SHIELD V7.x avec plugin MySQL et Xtrabackup 
+# Consignes exploitations SHIELD V7.0.4 avec plugin MySQL et Xtrabackup 
 
 Les 2 plugins ont été améliorés afin de minimiser les opérations d'exploitation durant la restauration.
 

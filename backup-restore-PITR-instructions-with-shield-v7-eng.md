@@ -1,4 +1,4 @@
-# Operations instructions for SHIELD V7.34 with MySQL / Xtrabackup plugin
+# Operations instructions for SHIELD V7.0.4 with MySQL / Xtrabackup plugin
 
 The 2 plugins have been improved to minimize the exploitation operations during restore
 
