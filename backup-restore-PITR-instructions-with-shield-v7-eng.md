@@ -188,7 +188,7 @@ MariaDB [(none)]> set sql_log_bin=off
 ```sql 
 MariaDB [(none)]> source /tmp/mybinlog.sql
 ```
-Réactiver les logbin
+ . enable logbin
 
 ```sql
 MariaDB [(none)]>  set sql_log_bin=on
