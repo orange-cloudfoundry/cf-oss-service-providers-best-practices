@@ -6,7 +6,7 @@ Les 2 plugins ont été améliorés afin de minimiser les opérations d'exploita
 
 Définir les options de MySQLDump dans le manifest
 
-```sh
+```
 mysql_host: 127.0.0.1
 mysql_port: "3306"
 mysql_user: root

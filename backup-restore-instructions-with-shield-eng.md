@@ -1,6 +1,6 @@
 # Operations instructions for SHIELD plugin V6 
 
-## Plugin MySQL
+## Plugin MySQL 
 
 Define MySQLDump option in manifest
 
@@ -23,7 +23,7 @@ Principles :
 
 #### Pre-requisites  
 
-On the restore node, modify MySQL system variables  
+On restore node, modify MySQL system variables  
 
 ```sql
 set global enforce_storage_engine=NULL;
