@@ -1,4 +1,6 @@
 # Operations instructions for SHIELD plugin V6 
+- [Plugin MySQL](#plugin-mySQL) 
+- [Plugin Xtrabackup](#plugin-xtrabackup)
 
 ## Plugin MySQL 
 
