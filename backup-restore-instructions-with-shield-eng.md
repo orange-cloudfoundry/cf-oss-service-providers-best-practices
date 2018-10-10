@@ -94,6 +94,10 @@ mysql_password: ((cf_mysql_mysql_admin_password))
 mysql_datadir: "/var/vcap/store/mysql"
 mysql_xtrabackup: "/var/vcap/packages/xtrabackup/bin/xtrabackup"
 ```
+if you are using a higher version of cf-mysql-release than 36.11 and Shield 7.x, you must set the socket as follows 
+```sh
+mysql_xtrabackup: ""/var/vcap/packages/xtrabackup/bin/xtrabackup --socket=/var/vcap/sys/run/mysql/mysqld.sock"
+```
 
 ### Restore with Xtrabackup
 
