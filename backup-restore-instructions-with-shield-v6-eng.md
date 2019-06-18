@@ -27,13 +27,20 @@ Principles :
 
 On restore node, modify MySQL system variables  
 
+. connect to mysql
+
+```sh
+mysql -uroot –p<mot de passe>
+```
+. disable logging and Enforce InnoDB Engine
+
 ```sql
-set global enforce_storage_engine=NULL;
-set global general_log=OFF;
-set global slow_query_log=OFF;
+MariaDB [(none)]> set global enforce_storage_engine=NULL;
+MariaDB [(none)]> set global general_log=OFF;
+MariaDB [(none)]> set global slow_query_log=OFF;
 ```
 
-Check the disk space used by the MySQL logbin
+. Check the disk space used by the MySQL logbin
 
 ```sql
 MariaDB [(none)]> SHOW BINARY LOGS;
@@ -70,7 +77,13 @@ Start restore
 #### Post Shield restore
 
 On restore node, reset the MySQL system variables to their initial values 
- 
+. connect to mysql
+
+```sh
+mysql -uroot –p<mot de passe>
+```
+. enable logging and Enforce InnoDB Engine
+
 ```sql
 MariaDB [(none)]> Set global enforce_storage_engine=InnoDB;
 MariaDB [(none)]> Set global general_log=OFF;

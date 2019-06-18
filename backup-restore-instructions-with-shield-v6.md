@@ -25,13 +25,20 @@ Principe
 
 Sur le nœud de restauration, modifier les variables systeme MySQL  
 
+. connection à MySQL
+
+```sh
+mysql -uroot –p<mot de passe>
+```
+. desactiver les paramètres 
+
 ```sql
-set global enforce_storage_engine=NULL;
-set global general_log=OFF;
-set global slow_query_log=OFF;
+MariaDB [(none)]> set global enforce_storage_engine=NULL;
+MariaDB [(none)]> set global general_log=OFF;
+MariaDB [(none)]> set global slow_query_log=OFF;
 ```
 
-Vérifier l'espace disque utilisé par les logbin MySQL
+. Vérifier l'espace disque utilisé par les logbin MySQL
 
 ```sql
 MariaDB [(none)]> SHOW BINARY LOGS;
@@ -68,7 +75,14 @@ Lancer la restauration
 #### Post-restauration
 
 Sur le nœud de restauration, Remettre les variables systeme MySQL à leurs valeurs initiales  
- 
+
+. connection à MySQL
+
+```sh
+mysql -uroot –p<mot de passe>
+```
+. réactiver les paramètres 
+
 ```sql
 MariaDB [(none)]> Set global enforce_storage_engine=InnoDB;
 MariaDB [(none)]> Set global general_log=OFF;
