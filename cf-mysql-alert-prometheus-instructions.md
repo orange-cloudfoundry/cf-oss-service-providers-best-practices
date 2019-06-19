@@ -109,7 +109,7 @@ mysql_global_status_wsrep_local_state == 2 AND mysql_global_status_wsrep_local_r
 - vérifier les traces MariaDB sous /var/vcap/sys/log/mysql/mysql.err.log
 
 
-### alert:MySQLGaleraFlowControlPaused
+### MySQLGaleraFlowControlPaused
 
 . Vérification : Cluster Galera figé, réplication ne commite pas
 
@@ -121,7 +121,7 @@ mysql_global_status_wsrep_flow_control_paused == 1)
 . Diagnostic : 
 - identifier le noeud qui bloque via les traces MariaDB sous /var/vcap/sys/log/mysql/mysql.err.log
 
-### alert:MySQLGaleraFlowControlPauseTooHigh
+### MySQLGaleraFlowControlPauseTooHigh
 
 . Vérification : Cluster Galera ralenti, lag de réplication entre 0.5 et 1
 
@@ -133,7 +133,7 @@ mysql_global_status_wsrep_flow_control_paused > 0.5 and mysql_global_status_wsre
 . Diagnostic : 
 - identifier le noeud qui bloque via les traces MariaDB sous /var/vcap/sys/log/mysql/mysql.err.log
 
-### alert:MySQLGaleraSendQueueLengthTooHigh
+### MySQLGaleraSendQueueLengthTooHigh
 
 . Vérification : replication (send) > 0.01
 
@@ -162,7 +162,7 @@ alors
 MariaDB [(none)]> flush status;
 ```
 
-### alert:MySQLGaleraRecvQueueLengthTooHigh
+### MySQLGaleraRecvQueueLengthTooHigh
 . Vérification : replication (recv) > 0.01
 
 ```
