@@ -231,8 +231,10 @@ Process 'mysqld_exporter'           running
 Si ko, 
 ```sh
 monit start mysqld_exporter
-...
+```
+
 Si ok et traces ok dans grafana
+
 ```sh
 monit restart mysqld_exporter
 ...
