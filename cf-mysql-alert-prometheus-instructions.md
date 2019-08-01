@@ -163,10 +163,10 @@ MariaDB [(none)]> flush status;
 ```
 
 ### MySQLGaleraRecvQueueLengthTooHigh
-. Vérification : replication (recv) > 0.01
+. Vérification : replication (recv) > 0.5
 
 ```
-mysql_global_status_wsrep_local_recv_queue_avg > 0.01
+mysql_global_status_wsrep_local_recv_queue_avg > 0.5
 ```
 . Message : "Galera Cluster on <deploiement/instance> had a local received queue length too high ({{$value}}) during the last 5m, It may indicate that the node cannot apply write-sets as fast as it receives them, which can lead to replication throttling""
 
@@ -189,3 +189,50 @@ alors
 ```sql
 MariaDB [(none)]> flush status;
 ```
+
+## Alerte Performances
+
+### MySQLInnoDBLogWaits
+
+. Vérification : Moyenne des temps d'écriture dans les InnoDBlog trop important
+
+```
+rate(mysql_global_status_innodb_log_waits[15m]) > 10
+```
+
+. Message : "the innodb logs at <deploiement/instances> are waiting for disk at a rate of <value>/second"
+
+. Diagnostic : 
+- vérifier les taux de remplissage du fs
+- vérifier les performances des disques persistents
+
+## Alerte prometheus-mysqld-exporter
+
+### MySQLdExporterScrapeError
+
+. Vérification : 
+
+```
+(mysql_exporter_last_scrape_error) != 0
+```
+
+. Message : "The mysqld_exporter <deploiement/instances> was unable to scrape metrics during the last 10m
+
+. Diagnostic : 
+- vérifier les status
+```sh
+monit summary
+
+...
+Process 'mysqld_exporter'           running
+...
+
+```
+Si ko, 
+```sh
+monit start mysqld_exporter
+...
+Si ok et traces ok dans grafana
+```sh
+monit restart mysqld_exporter
+...
