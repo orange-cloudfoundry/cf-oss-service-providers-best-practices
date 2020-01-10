@@ -21,6 +21,7 @@ Principe
 
 - Définir le nœud sur lequel on va restaurer
 - Stopper les autres nœuds
+- Bloquer les mises à jour de la part des applicatifs (proxy)
 - Restaurer
 - Resynchroniser les autres nœuds
 
@@ -36,6 +37,12 @@ Sur les autres nœuds
 monit stop mariadb_ctrl
 ```
 
+Sur les 2 noueds proxy
+
+```sh
+monit stop switchboard
+```
+
 #### Restaurer avec SHIELD
 
 Lancer la restauration depuis shield
@@ -43,6 +50,12 @@ Lancer la restauration depuis shield
 #### Post-restauration
 
 Si les vérifications sont correctes
+- Sur chacun 2 nœuds proxy
+
+```sh
+monit start switchboard
+```
+
 - Sur chacun autres nœuds à tour de rôle  
 
 ```sh

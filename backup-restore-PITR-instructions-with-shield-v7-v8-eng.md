@@ -20,6 +20,7 @@ mysql_bindir: "/var/vcap/packages/mariadb/bin"
 Principles :
 - Choose the mysql node for restore
 - Stop other nodes
+- Stop update database (proxy)
 - Restore backup
 - Resynchronize the other mysql nodes
 
@@ -32,6 +33,11 @@ On other mysql nodes  :
 ```sh
 monit stop mariadb_ctrl
 ```
+On 2 nodes proxy
+
+```sh
+monit stop switchboard
+```
 
 #### Restore with SHIELD
 
@@ -40,6 +46,13 @@ Start restore
 #### Post Shield restore
 
 - Verify if your database is correct.
+
+- On 2 nodes proxy, restart proxy
+
+```sh
+monit start switchboard
+```
+
 - On each other nodes, resynchronize MySQL Galera Cluster
 
 ```sh
