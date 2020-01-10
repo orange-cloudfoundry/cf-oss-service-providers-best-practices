@@ -37,7 +37,7 @@ Sur les autres nœuds
 monit stop mariadb_ctrl
 ```
 
-Sur les 2 noueds proxy
+Sur les 2 nœuds proxy
 
 ```sh
 monit stop switchboard
@@ -50,7 +50,8 @@ Lancer la restauration depuis shield
 #### Post-restauration
 
 Si les vérifications sont correctes
-- Sur chacun 2 nœuds proxy
+
+- Sur chacun 2 nœuds proxy, relancer le proxy
 
 ```sh
 monit start switchboard
