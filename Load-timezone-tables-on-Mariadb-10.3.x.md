@@ -1,7 +1,7 @@
-# Rappels release cf-mysql 37.1
+# Contexte de la release cf-mysql 37.1
 Pour les nouveaux déploiements avec la release cf-mysql 37.1 incluant MariaDB 10.3.22, les tables timezones sont automatiquement pré-chargées. 
 
-Par contre pour les déploiements (SHARED et DEDICATED) cf-mysql 36.9, nécessitant d'être upgradés, les tables timezone doivent être chargées manuellement. 
+Cependant pour les déploiements (SHARED et DEDICATED) cf-mysql 36.9, nécessitant d'être upgradés, les tables timezone doivent être chargées manuellement si nécessaire. 
 
 Ce document décrit le mode opératoire pour les alimenter 
 
@@ -9,9 +9,9 @@ Ce document décrit le mode opératoire pour les alimenter
 # Mode opératoire
 
 Principe  
-- sur tous les noeuds, désactiver le paramètre  enforce_storage_engine 
+- sur tous les noeuds, désactiver le paramètre `enforce_storage_engine` 
 - sur 1 seul noeud, charger les tables timezone
-- sur tous les noeuds, réactiver le paramètre  enforce_storage_engine - restaurer 
+- sur tous les noeuds, réactiver le paramètre  `enforce_storage_engine`
 
 ## Désactiver `enforce_storage_engine`  
 
