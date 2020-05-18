@@ -6,23 +6,23 @@ Par contre pour les déploiements (SHARED et DEDICATED) cf-mysql 36.9, nécessit
 Ce document décrit le mode opératoire pour les alimenter 
 
 
-# charger les tables timezone
+# Mode opératoire
 
-Principe 
+Principe  
 - sur tous les noeuds, désactiver le paramètre  enforce_storage_engine 
 - sur 1 seul noeud, charger les tables timezone
 - sur tous les noeuds, réactiver le paramètre  enforce_storage_engine - restaurer 
 
-## désactiver enforce_storage_engine  
+## Désactiver `enforce_storage_engine`  
 
 Sur tous les noeuds  modifier les variables systeme MySQL  
 
-. connection à MySQL
+. Connection à MySQL
 
 ```sh
 mysql --defaults-file=/var/vcap/jobs/mysql/config/mylogin.cnf
 ```
-. desactiver les paramètres 
+. Désactiver les paramètres 
 
 ```sql
 MariaDB [(none)]> set global enforce_storage_engine=NULL;
@@ -43,7 +43,7 @@ MariaDB [(none)]> show global variables like 'enforce%';
 
 Sur un seul noeud  
 
-. chargement
+. Chargement
 
 ```sh
 /var/vcap/packages/mariadb/bin/mysql_tzinfo_to_sql /usr/share/zoneinfo  | /var/vcap/packages/mariadb/bin/mysql --defaults-file="/var/vcap/jobs/mysql/config/mylogin.cnf" mysql
@@ -59,16 +59,16 @@ MariaDB [(none)]> select count(*) from mysql.time_zone;
 +----------+
 ```
 
-## Réactiver enforce_storage_engine  
+## Réactiver `enforce_storage_engine`
 
 Sur tous les noeuds  modifier les variables systeme MySQL  
 
-. connection à MySQL
+. Connection à MySQL
 
 ```sh
 mysql --defaults-file=/var/vcap/jobs/mysql/config/mylogin.cnf
 ```
-. desactiver les paramètres 
+. Réactiver les paramètres 
 
 ```sql
 MariaDB [(none)]> set global enforce_storage_engine=innodb;
