@@ -15,14 +15,14 @@ Principe
 
 ## Désactiver `enforce_storage_engine`  
 
-Sur tous les noeuds  modifier les variables systeme MySQL  
+Sur tous les noeuds  modifier la variable systeme MySQL  
 
 . Connection à MySQL
 
 ```sh
 mysql --defaults-file=/var/vcap/jobs/mysql/config/mylogin.cnf
 ```
-. Désactiver les paramètres 
+. Désactiver le paramètre
 
 ```sql
 MariaDB [(none)]> set global enforce_storage_engine=NULL;
@@ -61,14 +61,14 @@ MariaDB [(none)]> select count(*) from mysql.time_zone;
 
 ## Réactiver `enforce_storage_engine`
 
-Sur tous les noeuds  modifier les variables systeme MySQL  
+Sur tous les noeuds  modifier la variable systeme MySQL  
 
 . Connection à MySQL
 
 ```sh
 mysql --defaults-file=/var/vcap/jobs/mysql/config/mylogin.cnf
 ```
-. Réactiver les paramètres 
+. Réactiver le paramètre
 
 ```sql
 MariaDB [(none)]> set global enforce_storage_engine=innodb;
