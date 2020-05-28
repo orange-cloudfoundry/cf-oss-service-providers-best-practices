@@ -81,7 +81,7 @@ mysql_xtrabackup: ""/var/vcap/packages/xtrabackup/bin/xtrabackup --socket=/var/v
 Principles :
 
 - Choose the mysql node for restore
-- Stop other nodes
+- Stop all nodes
 - Restore backup
 - Prepare the restart of MySQL instance
 - Start MySQL

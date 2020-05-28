@@ -47,7 +47,11 @@ Sur un seul noeud
 
 ```sh
 /var/vcap/packages/mariadb/bin/mysql_tzinfo_to_sql /usr/share/zoneinfo  | /var/vcap/packages/mariadb/bin/mysql --defaults-file="/var/vcap/jobs/mysql/config/mylogin.cnf" mysql
+
+
+Warning: Unable to load '/usr/share/zoneinfo/leap-seconds.list' as time zone. Skipping it.
 ```
+
 . Vérifier 
 
 ```sql
@@ -57,6 +61,29 @@ MariaDB [(none)]> select count(*) from mysql.time_zone;
 +----------+
 |     1820 |   
 +----------+
+```
+. Vérifier heure UTC
+
+```sql
+MariaDB [mysql]> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2020-05-28 08:20:19 |
++---------------------+
+```
+. Vérifier heure Paris
+
+```sql
+MariaDB [mysql]> SET time_zone = 'Europe/Paris';
+Query OK, 0 rows affected (0.021 sec)
+
+MariaDB [mysql]> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2020-05-28 10:20:42 |
++---------------------+
 ```
 
 ## Réactiver `enforce_storage_engine`

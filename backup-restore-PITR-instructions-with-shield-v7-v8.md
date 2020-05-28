@@ -72,7 +72,7 @@ monit start mariadb_ctrl
 Principe 
 
 - Définir le nœud sur lequel on va restaurer
-- Stopper les autres nœuds
+- Stopper tous les nœuds
 - Restaurer
 - Préparer le redémarrage en BOOTSTRAP
 - Démarrer
